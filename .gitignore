@@ -1,0 +1,15 @@
+# Binários compilados
+/Lab1-CRUD
+/server
+*.exe
+*.out
+
+# Arquivos de sistema operacional
+.DS_Store
+
+# Arquivos de ambiente (se você usar)
+.env
+
+# Diretórios de IDE
+.vscode/
+.idea/
