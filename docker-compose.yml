@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_api_users
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: usersdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  api:
+    build: .
+    container_name: api_users
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      DB_USER: root
+      DB_PASS: root
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: usersdb
+      APP_PORT: 8080
+    ports:
+      - "8080:8080"
+    command: ["./api"]
+
+volumes:
+  mysql_data:
