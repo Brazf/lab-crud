@@ -1,34 +1,31 @@
 package main
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"lab1-crud/internal/config"
+	"lab1-crud/internal/database"
+	"lab1-crud/internal/handler"
+	"lab1-crud/internal/model"
+	"lab1-crud/internal/repository"
+	"lab1-crud/internal/service"
+	"log"
 )
 
 func main() {
 
-	/*
-		Apenas uma função principal que futuramente vai:
-		carregar configurações
-		inicializar o banco
-		criar instâncias das camadas
-		registrar rotas
-		iniciar o servidor
-	*/
+	cfg := config.LoadConfig()
 
-	// Create a Gin router with default middleware (logger and recovery)
-	r := gin.Default()
+	database.ConnectDB(cfg)
 
-	// Define a simple GET endpoint
-	r.GET("/ping", func(c *gin.Context) {
-		// Return JSON response
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
+	database.DB.AutoMigrate(&model.User{})
 
-	// Start server on port 8080 (default)
-	// Server will listen on 0.0.0.0:8080 (localhost:8080 on Windows)
-	r.Run()
+	userRepo := repository.NewUserRepository(database.DB)
+	userService := service.NewUserService(userRepo)
+	userHandler := handler.NewUserHandler(userService)
+
+	r := handler.SetupRoutes(userHandler)
+
+	log.Println("Servidor está funcionando na porta:", cfg.AppPort)
+
+	r.Run(":" + cfg.AppPort)
+
 }

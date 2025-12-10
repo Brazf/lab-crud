@@ -10,3 +10,5 @@
 | Service        | Regras de negócio             | Repository, Model |
 | Handler        | HTTP/REST                     | Service           |
 | Main           | Monta a aplicação             | Todas acima       |
+
+
