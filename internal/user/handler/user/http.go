@@ -1,8 +1,8 @@
-package handler
+package user
 
 import (
-	"lab1-crud/internal/model"
-	"lab1-crud/internal/service"
+	"lab1-crud/internal/user/model"
+	service "lab1-crud/internal/user/service/user"
 	"net/http"
 	"strconv"
 

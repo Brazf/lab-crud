@@ -1,12 +1,13 @@
 package main
 
 import (
-	"lab1-crud/internal/config"
-	"lab1-crud/internal/database"
-	"lab1-crud/internal/handler"
-	"lab1-crud/internal/model"
-	"lab1-crud/internal/repository"
-	"lab1-crud/internal/service"
+	router "lab1-crud/internal/http/router"
+	"lab1-crud/internal/user/common/config"
+	"lab1-crud/internal/user/common/database"
+	handler "lab1-crud/internal/user/handler/user"
+	"lab1-crud/internal/user/model"
+	service "lab1-crud/internal/user/service/user"
+	repository "lab1-crud/internal/user/storage/mysql/user"
 	"log"
 )
 
@@ -22,7 +23,7 @@ func main() {
 	userService := service.NewUserService(userRepo)
 	userHandler := handler.NewUserHandler(userService)
 
-	r := handler.SetupRoutes(userHandler)
+	r := router.SetupRoutes(userHandler)
 
 	log.Println("Servidor está funcionando na porta:", cfg.AppPort)
 

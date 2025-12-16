@@ -1,8 +1,12 @@
-package handler
+package router
 
-import "github.com/gin-gonic/gin"
+import (
+	handler "lab1-crud/internal/user/handler/user"
 
-func SetupRoutes(userHandler *UserHandler) *gin.Engine {
+	"github.com/gin-gonic/gin"
+)
+
+func SetupRoutes(userHandler *handler.UserHandler) *gin.Engine {
 	r := gin.Default()
 
 	r.GET("/users", userHandler.GetUsers)

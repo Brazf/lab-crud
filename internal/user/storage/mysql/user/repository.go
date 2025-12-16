@@ -1,24 +1,17 @@
-package repository
+package user
 
 import (
-	"lab1-crud/internal/model"
+	"lab1-crud/internal/user"
+	"lab1-crud/internal/user/model"
 
 	"gorm.io/gorm"
 )
-
-type UserRepository interface {
-	FindAll() ([]model.User, error)
-	FindByID(id uint) (*model.User, error)
-	Create(user *model.User) error
-	Update(user *model.User) error
-	Delete(id uint) error
-}
 
 type userRepository struct {
 	db *gorm.DB
 }
 
-func NewUserRepository(db *gorm.DB) UserRepository {
+func NewUserRepository(db *gorm.DB) user.UserRepository {
 	return &userRepository{db}
 }
 

@@ -1,9 +1,9 @@
-package service
+package user
 
 import (
 	"errors"
-	"lab1-crud/internal/model"
-	"lab1-crud/internal/repository"
+	repository "lab1-crud/internal/user"
+	"lab1-crud/internal/user/model"
 	"strings"
 )
 

@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	"lab1-crud/internal/config"
+	"lab1-crud/internal/user/common/config"
 	"log"
 
 	"gorm.io/driver/mysql"
@@ -20,7 +20,7 @@ func ConnectDB(cfg *config.Config) {
 		cfg.DBPort,
 		cfg.DBName,
 	)
-	
+
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
