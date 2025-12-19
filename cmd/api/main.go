@@ -4,11 +4,15 @@ import (
 	router "lab1-crud/internal/http/router"
 	"lab1-crud/internal/user/common/config"
 	"lab1-crud/internal/user/common/database"
-	handler "lab1-crud/internal/user/handler/user"
+	userHandler "lab1-crud/internal/user/handler/user"
 	"lab1-crud/internal/user/model"
-	service "lab1-crud/internal/user/service/user"
-	repository "lab1-crud/internal/user/storage/mysql/user"
+	userService "lab1-crud/internal/user/service/user"
+	userRepository "lab1-crud/internal/user/storage/mysql/user"
 	"log"
+
+	orgHandler "lab1-crud/internal/user/handler/org"
+	orgService "lab1-crud/internal/user/service/org"
+	orgRepository "lab1-crud/internal/user/storage/mysql/org"
 )
 
 func main() {
@@ -17,13 +21,17 @@ func main() {
 
 	database.ConnectDB(cfg)
 
-	database.DB.AutoMigrate(&model.User{})
+	database.DB.AutoMigrate(&model.User{}, &model.Organization{}, &model.OrganizationUser{})
 
-	userRepo := repository.NewUserRepository(database.DB)
-	userService := service.NewUserService(userRepo)
-	userHandler := handler.NewUserHandler(userService)
+	userRepo := userRepository.NewUserRepository(database.DB)
+	userService := userService.NewUserService(userRepo)
+	userHandler := userHandler.NewUserHandler(userService)
 
-	r := router.SetupRoutes(userHandler)
+	orgRepo := orgRepository.NewOrgRepository(database.DB)
+	orgService := orgService.NewOrgService(orgRepo)
+	orgHandler := orgHandler.NewOrgHandler(orgService)
+
+	r := router.SetupRoutes(userHandler, orgHandler)
 
 	log.Println("Servidor está funcionando na porta:", cfg.AppPort)
 
