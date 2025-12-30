@@ -15,6 +15,7 @@ type OrgService interface {
 	GetUsersOrg(orgID uint) ([]model.OrganizationUser, error)
 	AddUserToOrg(orgID, userID uint, role string) error
 	RemoveUser(orgID, userID uint) error
+	GetUserByOrg(orgID, userID uint) (*model.User, error)
 }
 
 type orgService struct {
@@ -99,4 +100,8 @@ func (s *orgService) RemoveUser(orgID, userID uint) error {
 
 func (s *orgService) GetUsersOrg(orgID uint) ([]model.OrganizationUser, error) {
 	return s.repo.FindUsersByOrg(orgID)
+}
+
+func (s *orgService) GetUserByOrg(orgID, userID uint) (*model.User, error) {
+	return s.repo.SearchUserByOrg(orgID, userID)
 }

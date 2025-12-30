@@ -23,7 +23,7 @@ type Organization struct {
 }
 
 type OrganizationUser struct {
-	OrganizationID uint   `gorm:"primaryKey" json:"id"`
-	UserID         uint   `gorm:"primaryKey" json:"id"`
+	OrganizationID uint   `gorm:"primaryKey" json:"organization_id"`
+	UserID         uint   `gorm:"primaryKey" json:"user_id"`
 	Role           string `json:"role"`
 }

@@ -57,3 +57,7 @@ func (r *orgRepository) FindUsersByOrg(orgID uint) ([]model.OrganizationUser, er
 
 	return usersOrg, nil
 }
+
+func (r *orgRepository) SearchUserByOrg(orgID, userID uint) (*model.User, error) {
+	return nil, nil
+}
