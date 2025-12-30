@@ -12,8 +12,6 @@ type UserRepository interface {
 	Delete(id uint) error
 }
 
-// ... (mantenha o UserRepository existente)
-
 type OrgRepository interface {
 	Create(org *model.Organization) error
 	FindAll() ([]model.Organization, error)
@@ -21,8 +19,9 @@ type OrgRepository interface {
 	Update(org *model.Organization) error
 	Delete(id uint) error
 
-	// Métodos para gerenciar usuários na org
 	AddUser(orgUser *model.OrganizationUser) error
 	RemoveUser(orgID, userID uint) error
 	FindUsersByOrg(orgID uint) ([]model.OrganizationUser, error)
+	// feature futura
+	SearchUserByOrg(orgID, userID uint) (*model.User, error)
 }
